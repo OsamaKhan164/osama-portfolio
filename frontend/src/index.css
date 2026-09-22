@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Dark theme — default. Values are "R G B" so Tailwind's rgb(var(...) / <alpha-value>)
+     opacity syntax keeps working (e.g. bg-gold/5, border-gold/40). Palette:
+     layered near-black + deep forest-green + light sage + subtle navy,
+     inspired by the reference dashboard's multi-tone atmosphere. */
+  :root {
+    --color-bg: 7 11 9; /* #070B09 — near-black base (see --page-gradient for the actual layered background) */
+    --color-bg-secondary: 5 8 10; /* #05080A — sidebar/navbar, deeper black with a hint of navy */
+    --color-card: 16 32 26; /* #10201A — dark forest-green elevated surface */
+    --color-input: 14 27 22; /* #0E1B16 */
+    --color-border: 30 50 41; /* #1E3229 — subtle dark green border */
+    --color-gold: 61 138 92; /* #3D8A5C — primary accent: deep forest green */
+    --color-gold-bright: 95 174 124; /* #5FAE7C — bright accent: lighter sage-green */
+    --color-gold-light: 154 209 172; /* #9AD1AC — light accent: pale sage */
+    --color-heading: 237 243 239; /* #EDF3EF — soft off-white, not harsh pure white */
+    --color-body: 150 175 163; /* #96AFA3 — muted sage-gray secondary text */
+    --color-muted: 110 133 121; /* #6E8579 — darker muted gray-green */
+    --color-button-surface: 20 42 32; /* #142A20 — normal button surface, distinct from cards */
+    --color-button-border: 35 67 51; /* #234333 */
+    --color-button-hover: 27 53 39; /* #1B3527 */
+    --color-accent-blue: 43 59 82; /* #2B3B52 — subtle dark navy secondary accent */
+    --color-error: 185 123 101; /* #B97B65 — muted warm terracotta, kept out of the red/pink family */
+
+    /* Layered page background — the "multi-tone" effect the reference site
+       has: a soft sage-green glow upper-left, a subtle navy glow
+       upper-right, both fading into near-black lower on the page. */
+    --page-gradient: radial-gradient(ellipse 1000px 520px at 12% -10%, rgb(61 138 92 / 0.12), transparent 55%),
+      radial-gradient(ellipse 820px 440px at 92% 6%, rgb(43 59 82 / 0.16), transparent 60%),
+      linear-gradient(180deg, #0d1a14 0%, #081008 45%, #050705 100%);
+
+    color-scheme: dark;
+  }
+
+  /* Light theme — applied via a .light class on <html>, toggled by ThemeContext.
+     Same forest-green + sage + navy identity, re-tuned as light sage surfaces. */
+  html.light {
+    --color-bg: 244 248 244; /* #F4F8F4 — light sage base */
+    --color-bg-secondary: 233 241 232; /* #E9F1E8 */
+    --color-card: 255 255 255; /* #FFFFFF */
+    --color-input: 255 255 255; /* #FFFFFF */
+    --color-border: 214 228 211; /* #D6E4D3 */
+    --color-gold: 47 104 68; /* #2F6844 — deep forest green, AA contrast on light surfaces */
+    --color-gold-bright: 37 83 57; /* #255339 — darkened for hover feedback on light bg */
+    --color-gold-light: 61 128 85; /* #3D8055 */
+    --color-heading: 14 37 26; /* #0E251A */
+    --color-body: 58 85 72; /* #3A5548 */
+    --color-muted: 107 132 120; /* #6B8478 */
+    --color-button-surface: 227 239 225; /* #E3EFE1 */
+    --color-button-border: 195 218 192; /* #C3DAC0 */
+    --color-button-hover: 213 231 210; /* #D5E7D2 */
+    --color-accent-blue: 51 68 92; /* #33445C — muted navy, still dark enough on light bg */
+    --color-error: 168 101 79; /* #A8654F — deepened terracotta for AA contrast on light surfaces */
+
+    --page-gradient: linear-gradient(180deg, #f4f8f4 0%, #ffffff 60%);
+
+    color-scheme: light;
+  }
+
+  * {
+    scroll-behavior: smooth;
+  }
+
+  html,
+  body {
+    background: var(--page-gradient);
+    color: rgb(var(--color-body));
+  }
+
+  body {
+    font-family: "Inter", sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Space Grotesk", sans-serif;
+  }
+
+  ::selection {
+    background-color: rgb(var(--color-gold) / 0.25);
+    color: rgb(var(--color-heading));
+  }
+
+  /* visible keyboard focus, kept subtle and on-brand */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid rgb(var(--color-gold));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Subtle top-lit sheen on every card (bg-card utility) so cards read as
+     elevated dark-green surfaces rather than a flat repeat of the page
+     background — applies only in dark mode, where the effect is visible;
+     light-mode cards stay clean white. */
+  .bg-card {
+    background-image: linear-gradient(180deg, rgb(28 54 42 / 0.55) 0%, rgb(14 27 22 / 0) 100%);
+  }
+
+  html.light .bg-card {
+    background-image: none;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
