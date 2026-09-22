@@ -1,8 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Home, User, Briefcase, Mail ,Code2} from "lucide-react";
-import Logo from "./Logo.jsx";
-
+import {
+  Home,
+  User,
+  Briefcase,
+  Mail,
+  Code2,
+  LayoutDashboard,
+} from "lucide-react";
+import { useAuth } from "../context/AuthContext.jsx";
 const navItems = [
   { label: "Home", to: "/", icon: Home, end: true },
   { label: "About", to: "/about", icon: User },
@@ -11,6 +17,7 @@ const navItems = [
 ];
 
 export default function Sidebar() {
+  const { user, isAuthenticated } = useAuth();
   const linkClasses = ({ isActive }) =>
     `group relative flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-all duration-200 justify-center md:justify-start ${
       isActive
@@ -31,6 +38,27 @@ export default function Sidebar() {
       </NavLink>
 
       <nav className="flex-1 space-y-1 px-2 py-4 md:px-3">
+        {isAuthenticated && user?.role === "admin" && (
+          <NavLink to="/dashboard" title="Dashboard" className={linkClasses}>
+            {({ isActive }) => (
+              <>
+                <span
+                  className={`absolute left-0 top-1/2 hidden h-5 w-[3px] -translate-y-1/2 rounded-full bg-gold transition-opacity duration-200 md:block ${
+                    isActive ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+
+                <LayoutDashboard
+                  size={19}
+                  className="shrink-0 transition-transform duration-200 group-hover:scale-110"
+                />
+
+                <span className="hidden md:inline">Dashboard</span>
+              </>
+            )}
+          </NavLink>
+        )}
+
         {navItems.map((item) => (
           <NavLink
             key={item.to}
