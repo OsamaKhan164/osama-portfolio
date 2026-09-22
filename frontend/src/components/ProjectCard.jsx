@@ -4,7 +4,7 @@ import { ExternalLink, Github } from "lucide-react";
 import useProtectedAction from "../hooks/useProtectedAction.js";
 
 export default function ProjectCard({ project }) {
-  const { id, title, description, technologies, liveUrl, githubUrl } = project;
+  const { id, title, description, technologies, liveUrl, githubUrl , image } = project;
   const runProtected = useProtectedAction();
 
   return (
@@ -12,15 +12,24 @@ export default function ProjectCard({ project }) {
       {/* Thumbnail placeholder — abstract code-pattern, no fake image URL.
           Links to the project's detail page; that route itself requires
           sign-in (via RequireAuth), so this stays a plain public Link. */}
-      <Link to={`/projects/${id}`} className="relative block h-44 overflow-hidden border-b border-border bg-bg-secondary">
-        <div className="absolute inset-0 flex flex-col justify-center gap-2 px-6 opacity-70">
-          <div className="h-2 w-2/3 rounded bg-border" />
-          <div className="h-2 w-1/2 rounded bg-border" />
-          <div className="h-2 w-3/5 rounded bg-gold/30" />
-          <div className="h-2 w-1/3 rounded bg-border" />
-        </div>
-        <div className="absolute right-4 top-4 h-2 w-2 rounded-full bg-gold/50" />
-      </Link>
+      <Link
+  to={`/projects/${id}`}
+  className="relative block h-44 overflow-hidden border-b border-border bg-bg-secondary"
+>
+  {image ? (
+    <img
+      src={image}
+      alt={title}
+      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+  ) : (
+    <div className="absolute inset-0 flex items-center justify-center text-muted">
+      No Image
+    </div>
+  )}
+
+  <div className="absolute inset-0 bg-black/20 transition-opacity group-hover:bg-black/10" />
+</Link>
 
       <div className="flex flex-1 flex-col p-6">
         <Link to={`/projects/${id}`}>

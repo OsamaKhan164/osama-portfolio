@@ -3,6 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 import { LogOut, User, ShieldCheck } from "lucide-react";
 import ThemeToggle from "./ThemeToggle.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
+import NotificationBell from "../admin/components/NotificationBell.jsx";
 
 /**
  * Fixed top navbar. Page navigation now lives permanently in <Sidebar />,
@@ -27,6 +28,8 @@ export default function Navbar() {
               {isAuthenticated ? (
                 <>
                   {user?.role === "admin" && (
+                    <>
+                    <NotificationBell />
                     <Link
                       to="/admin"
                       className="hidden items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-gold sm:flex"
@@ -35,6 +38,7 @@ export default function Navbar() {
                       <ShieldCheck size={14} />
                       Admin
                     </Link>
+                    </>
                   )}
                   <span className="hidden items-center gap-1.5 text-sm text-muted sm:flex">
                     <User size={14} className="text-gold" />

@@ -8,6 +8,7 @@ import {
   FolderKanban,
   LogOut,
   X,
+  Code2,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext.jsx";
 import Logo from "../../components/Logo.jsx";
@@ -34,7 +35,7 @@ export default function AdminSidebar({ mobileOpen, onClose }) {
     <div className="flex h-full flex-col">
       <div className="flex items-center justify-between px-4 py-5">
         <span className="flex items-center gap-2.5 font-display text-lg font-semibold text-heading">
-          <Logo size={26} className="text-heading" />
+          <Code2 />
           Admin Panel
         </span>
         <button

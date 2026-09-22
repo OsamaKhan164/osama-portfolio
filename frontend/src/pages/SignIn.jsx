@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext.jsx";
 import { useToast } from "../context/ToastContext.jsx";
 import { api } from "../services/api.js";
 import ThemeToggle from "../components/ThemeToggle.jsx";
-import Logo from "../components/Logo.jsx";
+// import Logo from "../components/Logo.jsx";
 
 const fieldClasses = (hasError) =>
   `w-full rounded-md border bg-input px-4 py-3 text-sm text-heading placeholder:text-muted/60 transition-colors duration-200 focus:outline-none focus:ring-1 ${
@@ -89,9 +89,9 @@ export default function SignIn() {
 
   return (
     <section className="relative mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-16">
-      <div className="absolute right-4 top-4">
+      {/* <div className="absolute right-4 top-4">
         <ThemeToggle display="flex" />
-      </div>
+      </div> */}
       <Link to="/" className="mx-auto mb-6 flex items-center gap-2">
         <Code2 />
       </Link>
