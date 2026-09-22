@@ -39,7 +39,7 @@ export default function Sidebar() {
 
       <nav className="flex-1 space-y-1 px-2 py-4 md:px-3">
         {isAuthenticated && user?.role === "admin" && (
-          <NavLink to="/dashboard" title="Dashboard" className={linkClasses}>
+          <NavLink to="/admin" title="Dashboard" className={linkClasses}>
             {({ isActive }) => (
               <>
                 <span
